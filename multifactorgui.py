@@ -61,6 +61,9 @@ class MultiFactorAuth(tk.Tk):
   def authorize(self):
     student_username = self.ent_username.get()
     student_password = self.ent_password.get()
+
+    #insert code check here.
+
     if (student_username == self.username and  student_password == self.password):
         # authorized - create authentication frame and widgets
         self.frame_auth = tk.Frame(self, bg="plum4")
@@ -137,22 +140,23 @@ class MultiFactorAuth(tk.Tk):
     return self.password
 
   def get_authorization(self):
-    a = self.username
-    b = self.password
-    s1 = [None]*(len(a) + len(b))
+    username = self.username
+    password = self.password
+    user_pw = [None]*(len(username) + len(password))
 
     i = 0
-    for c in a:
-      s1[i] = c
+    for char in username:
+      user_pw[i] = char
       i += 1   
-    s1[10] = ":"
-    i = 11
-    for c in b:
-      s1[i] = c
+    i = len(username)
+    for char in password:
+      user_pw[i] = char
       i += 1
 
+    user_pw.insert(len(username), ':')
+
     s2 = "["
-    for c in s1:
+    for c in user_pw:
       if c == None:
         s2 = s2 + " "
       else:
